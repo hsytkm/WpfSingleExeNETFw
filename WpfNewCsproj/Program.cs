@@ -1,7 +1,6 @@
-﻿#nullable enable
-using System.Reflection;
-using WpfOldCsproj;
-using WpfOldCsproj.Views;
+﻿using System.Reflection;
+using WpfNewCsproj;
+using WpfNewCsproj.Views;
 
 public class Program
 {
@@ -32,7 +31,7 @@ public class Program
         if (stream is null)
             return null;
 
-        // 以降はシングルファイルの実行時のみ通るようです
+        // 以降はシングルファイルの実行時のみ通るようです(新csprojの方は対応できていません)
         LoadedAssemblies.AppendLine($"{args.Name} : Size={stream.Length} byte");
 
         stream.Position = 0;

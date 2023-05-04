@@ -8,17 +8,29 @@
 
 
 
-### 成果まとめ
+### 前提
+
+.NET Fw 4.8
+
+
+
+### 検討まとめ
+
+**うまくいった**
 
 旧型式の csproj であれば単一ファイルを作成できました。
 
-が、旧型式のcsproj だと ソースジェネレータが動作しないようで、 CommunityToolkit を使用できませんでした… つらい。
+**うまくいかなかった**
+
+- 旧型式のcsproj では ソースジェネレータが動作しませんでした。CommunityToolKit は ViewModel を .NETStandard2.0 の別プロジェクトに分けることで対応できました。
+
+- 新形式のcsprojで単一ファイルを生成できませんでした。
 
 
 
 ### 調査で知ったこと
 
-- Microsoft製のツールの [ILMerge](http://research.microsoft.com/en-us/people/mbarnett/ilmerge.aspx) を使用すると .NET アセンブリを単一ファイルにマージできるそうですが、XAML が含まれる WPF には対応していないらしいです。
+- Microsoft純正ツールの [ILMerge](http://research.microsoft.com/en-us/people/mbarnett/ilmerge.aspx) を使用すると .NET アセンブリを単一ファイルにマージできるそうですが、XAML が含まれる WPF には対応していないらしいです。
 
 
 

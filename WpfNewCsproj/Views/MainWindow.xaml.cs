@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace WpfOldCsproj.Views;
+namespace WpfNewCsproj.Views;
 
 public partial class MainWindow : Window
 {
