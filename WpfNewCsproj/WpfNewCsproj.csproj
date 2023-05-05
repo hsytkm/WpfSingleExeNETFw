@@ -21,7 +21,7 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
     <PackageReference Include="ControlzEx" Version="5.0.2" />
     <PackageReference Include="InternalReservedAttributeGenerator" Version="0.1.2" />
-    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <!--<PackageReference Include="MahApps.Metro" Version="2.4.9" />-->
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="ReactiveProperty.WPF" Version="9.1.2" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
@@ -31,13 +31,18 @@
     <ProjectReference Include="..\Wpf.ViewModel\Wpf.ViewModel.csproj" />
   </ItemGroup>
 
-  <!-- 新csprojで以下を動作させたい。。。
-  <Target Name="AfterResolveReferences">
+  <!--  ビルド時の単一ファイル生成対応(MahApps を導入すると Culture=de でビルドエラーが発生します)  -->
+  <Target Name="CreateSingleExe" AfterTargets="ResolveReferences">
     <ItemGroup>
       <EmbeddedResource Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'">
         <LogicalName>%(ReferenceCopyLocalPaths.DestinationSubDirectory)%(ReferenceCopyLocalPaths.Filename)%(ReferenceCopyLocalPaths.Extension)</LogicalName>
       </EmbeddedResource>
     </ItemGroup>
-  </Target>-->
+  </Target>
+
+  <!--  ビルド後に成果物フォルダのdllを削除します  -->
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="del $(TargetDir)\*.dll" />
+  </Target>
 
 </Project>

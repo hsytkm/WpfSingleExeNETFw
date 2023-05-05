@@ -231,4 +231,7 @@
       </EmbeddedResource>
     </ItemGroup>
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>del $(TargetDir)\*.dll</PostBuildEvent>
+  </PropertyGroup>
 </Project>

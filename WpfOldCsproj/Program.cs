@@ -32,8 +32,8 @@ public class Program
         if (stream is null)
             return null;
 
-        // 以降はシングルファイルの実行時のみ通るようです
-        LoadedAssemblies.AppendLine($"{args.Name} : Size={stream.Length} byte");
+        // 以降は同フォルダにdllが存在しない場合のみ通るようです
+        LoadedAssemblies.AppendLine($"{args.Name} : Size={stream.Length} bytes");
 
         stream.Position = 0;
         var assemblyRawBytes = new byte[stream.Length];

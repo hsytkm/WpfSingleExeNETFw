@@ -13,11 +13,13 @@
                 <Setter Property="Margin" Value="0,10" />
             </Style>
 
+            <!-- MahApps を導入すると、単一ファイルの生成ビルドでエラーが発生するので一旦無効化します。
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            -->
         </ResourceDictionary>
     </Application.Resources>
 </Application>
