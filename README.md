@@ -14,10 +14,17 @@
 
 ### 検討まとめ
 
+一言で書くと、.NET Fw で単一ファイルを作るなら [MahApps](https://github.com/MahApps/MahApps.Metro) の使用はあきらめよう。
+
 **うまくいった点**
 
 - 旧型式の csproj で単一ファイルを作成できました。
-- 新形式の csproj でも **MahApps を導入しなければ**、 単一ファイルを作成できました。
+
+- 新形式の csproj でも **~~MahApps を導入しなければ~~**、 単一ファイルを作成できました。
+
+  **MahApps を導入するとビルドエラーが発生しますが exe は生成されており、ファイル単体で動作しました。**
+
+  > エラー	MSB3030	ファイル "obj\Debug\net48\de\WpfNewCsproj.resources.dll" は見つからなかったためコピーできません。	WpfNewCsproj	C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\amd64\Microsoft.Common.CurrentVersion.targets	4786	
 
 **うまくいかなかった点**
 
@@ -25,9 +32,25 @@
 
 - 新形式のcsproj + MahApps で単一ファイルのビルドが通りませんでした。 MahApps が `Culture=de` にすることが原因のようです。 [for the ColorPicker name - Issue #2315](https://github.com/MahApps/MahApps.Metro/issues/2315#issuecomment-914944785)
 
-### 調査で知ったこと
+### 単一ファル生成のフローチャート
 
-**自分で試していません**
+ややこしい + Mermaid を使ってみたかったので整理しました。
+
+
+```mermaid
+flowchart TD
+A[Can create single exe?]
+A --> B[.NET Framework]
+B --> |"No"| C[Can publish!]
+B --> |"Yes"| D[Format of csproj]
+D --> |"Old"| C
+D --> |"New"| F[Use MahApps]
+F --> |"No"| C
+F --> |"Yes"| H[Can publish but get a MSBuild error MSB3030]
+
+```
+
+### 調査で知ったけど自分で試していないこと
 
 - Microsoft純正ツールの [ILMerge](http://research.microsoft.com/en-us/people/mbarnett/ilmerge.aspx) を使用すると .NET アセンブリを単一ファイルにマージできるそうですが、XAML が含まれる WPF には対応していないらしいです。
 - 今回試した方法は 混合モードアセンブリ だとうまく行かないらしい。(C++/CLI と結合できないってことだと思われる) 
@@ -52,3 +75,4 @@
 [WPFアプリケーションをEXEひとつにまとめる - secretbase.log](https://cointoss.hatenablog.com/entry/2017/02/21/121209)
 
 [Combining multiple assemblies into a single EXE for a WPF application | DigitallyCreated](http://www.digitallycreated.net/Blog/61/combining-multiple-assemblies-into-a-single-exe-for-a-wpf-application)
+

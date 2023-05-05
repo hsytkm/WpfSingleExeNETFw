@@ -21,7 +21,7 @@
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
     <PackageReference Include="ControlzEx" Version="5.0.2" />
     <PackageReference Include="InternalReservedAttributeGenerator" Version="0.1.2" />
-    <!--<PackageReference Include="MahApps.Metro" Version="2.4.9" />-->
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
     <PackageReference Include="ReactiveProperty.WPF" Version="9.1.2" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
@@ -31,7 +31,8 @@
     <ProjectReference Include="..\Wpf.ViewModel\Wpf.ViewModel.csproj" />
   </ItemGroup>
 
-  <!--  ビルド時の単一ファイル生成対応(MahApps を導入すると Culture=de でビルドエラーが発生します)  -->
+  <!--  ビルド時の単一ファイル生成対応  -->
+  <!--  MahApps を導入するとビルドでエラーが発生します (生成exeは単体で動作します)  -->
   <Target Name="CreateSingleExe" AfterTargets="ResolveReferences">
     <ItemGroup>
       <EmbeddedResource Include="@(ReferenceCopyLocalPaths)" Condition="'%(ReferenceCopyLocalPaths.Extension)' == '.dll'">
