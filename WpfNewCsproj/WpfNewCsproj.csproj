@@ -41,7 +41,14 @@
     </ItemGroup>
   </Target>
 
-  <!--  ビルド後に成果物フォルダのdllを削除します  -->
+  <!--  MahApps 導入時の(Cultureによる)ビルドエラー対策  -->
+  <Target Name="SuppressCopyOfSelfResourceDll" BeforeTargets="ComputeIntermediateSatelliteAssemblies">
+    <ItemGroup>
+      <EmbeddedResource Remove="@(EmbeddedResource)" />
+    </ItemGroup>
+  </Target>
+
+  <!--  ビルド後に成果物フォルダのdllを削除します(F5実行の動作をPublishと揃えるためです)  -->
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="del $(TargetDir)\*.dll" />
   </Target>
